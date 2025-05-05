@@ -17,10 +17,11 @@ public class Task {
     
     private String dueDate;
     @ElementCollection
-    private List tags;
+    private List<String> tags;
 
+    public Task(){}
 
-    public Task(String taskName, String description, TaskStatus status, String dueDate, List tags){
+    public Task(String taskName, String description, TaskStatus status, String dueDate, List<String> tags){
         this.taskName=taskName;
         this.description=description;
         this.status=status;
