@@ -1,5 +1,6 @@
-package com.example.task_manager_api;
+package com.example.task_manager_api.model;
 
+import com.example.task_manager_api.model.TaskStatus;
 import jakarta.persistence.*;
 
 import java.util.List;

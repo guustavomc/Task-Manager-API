@@ -1,11 +1,10 @@
-package com.example.task_manager_api;
+package com.example.task_manager_api.service;
 
-import com.example.task_manager_api.Task;
-import com.example.task_manager_api.TaskStatus;
-import com.example.task_manager_api.TaskRepository;
+import com.example.task_manager_api.model.Task;
+import com.example.task_manager_api.model.TaskStatus;
+import com.example.task_manager_api.repository.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;

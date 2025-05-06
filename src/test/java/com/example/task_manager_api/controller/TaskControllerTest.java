@@ -1,5 +1,8 @@
-package com.example.task_manager_api;
+package com.example.task_manager_api.controller;
 
+import com.example.task_manager_api.model.Task;
+import com.example.task_manager_api.repository.TaskRepository;
+import com.example.task_manager_api.model.TaskStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

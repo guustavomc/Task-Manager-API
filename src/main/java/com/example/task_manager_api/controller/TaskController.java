@@ -1,10 +1,10 @@
-package com.example.task_manager_api;
+package com.example.task_manager_api.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.example.task_manager_api.model.Task;
+import com.example.task_manager_api.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 

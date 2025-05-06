@@ -47,22 +47,20 @@ c. Service Layer
 d. Controller
 ✅ Create TaskController with REST endpoints:
 
-GET /tasks
-
-GET /tasks/{id}
-
-POST /tasks
-
-PUT /tasks/{id}
-
-DELETE /tasks/{id}
+GET    /api/tasks             -> List all tasks
+GET    /api/tasks/{id}        -> Get task by ID
+POST   /api/tasks             -> Create a task
+PUT    /api/tasks/{id}        -> Update a task
+DELETE /api/tasks/{id}        -> Delete a task
+GET    /api/tasks/status/{status}    -> Filter by status
+GET    /api/tasks/due?before=...     -> Tasks due before date
 
 🔹 3. Testing
 ✅ Unit test TaskController using @WebMvcTest
 
 ✅ Use MockMvc to simulate HTTP requests
 
-❗Optionally test TaskService (unit test with mocks)
+Test TaskService (unit test with mocks)
 
 🔹 4. Data Validation & Error Handling
 ⏳ Use @Valid and @NotNull, @Size, etc. on request DTOs
@@ -79,4 +77,34 @@ DELETE /tasks/{id}
 ⏳ Dockerize the app
 
 ⏳ Deploy to Heroku, Render, or Railway
+
+
+----------
+
+✅ Milestone Plan
+
+Milestone 1: Basic CRUD
+Set up Spring Boot project
+
+Define Task model and enum
+
+Create repository with Spring Data JPA
+
+Build controller and service for CRUD
+
+Validate input (e.g., title not blank)
+
+Milestone 2: Testing
+Add unit tests for the service layer
+
+Add integration tests for controllers using @SpringBootTest
+
+Milestone 3: Extras
+Use Docker + PostgreSQL
+
+Add filtering endpoints
+
+Swagger/OpenAPI documentation
+
+Optional: add authentication (JWT)
 
