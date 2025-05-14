@@ -97,7 +97,7 @@ Tests are organized similarly under `src/test/java`, mirroring the main package 
 ### 🔹 3. Testing
 - ✅ Unit test `TaskController` using `@SpringBootTest` and MockMvc
 - ✅ Use MockMvc to simulate HTTP requests
-- ⏳ Test `TaskService` (unit test with mocks)
+- ✅ Test `TaskService` (unit test with mocks)
 
 ### 🔹 4. Data Validation & Error Handling
 - ⏳ Use `@Valid`, `@NotNull`, `@Size`, etc., on request DTOs
@@ -187,7 +187,6 @@ Additional endpoints (planned):
 - `PUT /api/task/{id}` – Update a task
 - `DELETE /api/task/{id}` – Delete a task
 - `GET /api/task/status/{status}` – Filter tasks by status
-- `GET /api/task/due?before=...` – Filter tasks due before a date
 
 ## 🛡️ Security (Planned)
 - Add Spring Security with JWT or basic authentication to secure endpoints.
