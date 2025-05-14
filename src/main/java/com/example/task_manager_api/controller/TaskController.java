@@ -1,6 +1,7 @@
 package com.example.task_manager_api.controller;
 
 import com.example.task_manager_api.model.Task;
+import com.example.task_manager_api.model.TaskStatus;
 import com.example.task_manager_api.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +49,10 @@ public class TaskController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(task);
         }
+    }
+
+    @GetMapping("/status/{status}")
+    public List<Task> getTaskWithStatus(@PathVariable("status")TaskStatus status){
+        return taskService.getTaskWithStatus(status);
     }
 }

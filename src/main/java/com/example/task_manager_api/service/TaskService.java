@@ -1,6 +1,7 @@
 package com.example.task_manager_api.service;
 
 import com.example.task_manager_api.model.Task;
+import com.example.task_manager_api.model.TaskStatus;
 import com.example.task_manager_api.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -43,6 +44,10 @@ public class TaskService {
                     return taskRepository.save(existingTask);
                 })
                 .orElseThrow(() -> new RuntimeException("Task with ID " + id + " not found"));
+    }
+
+    public List<Task> getTaskWithStatus(TaskStatus status){
+        return taskRepository.findByStatus(status);
     }
 
 
