@@ -3,6 +3,7 @@ package com.example.task_manager_api.model;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TaskRequest {
@@ -16,7 +17,7 @@ public class TaskRequest {
     @NotNull(message = "Status is required")
     private TaskStatus status;
 
-    private String dueDate;
+    private LocalDate dueDate;
 
     private List<String> tags;
 
@@ -32,7 +33,7 @@ public class TaskRequest {
         return status;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
@@ -52,7 +53,7 @@ public class TaskRequest {
         this.status = status;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 

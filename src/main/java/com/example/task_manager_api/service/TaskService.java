@@ -5,6 +5,8 @@ import com.example.task_manager_api.model.TaskRequest;
 import com.example.task_manager_api.model.TaskStatus;
 import com.example.task_manager_api.repository.TaskRepository;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -55,6 +57,10 @@ public class TaskService {
 
     public List<Task> getTaskWithStatus(TaskStatus status){
         return taskRepository.findByStatus(status);
+    }
+
+    public List<Task> getTasksDueBefore(LocalDate date){
+        return taskRepository.findByDueDateBefore(date);
     }
 
 

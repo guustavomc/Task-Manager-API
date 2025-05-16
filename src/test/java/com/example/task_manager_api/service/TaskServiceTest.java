@@ -7,6 +7,7 @@ import com.example.task_manager_api.repository.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +29,8 @@ public class TaskServiceTest {
     void testGetAllExistingTasks(){
         List tags = new ArrayList();
         tags.add("tag 1");
-        Task task1 = new Task("Task 1","Description 1", TaskStatus.TODO,"november",tags);
-        Task task2 = new Task("Task 2","Description 2", TaskStatus.TODO,"december",tags);
+        Task task1 = new Task("Task 1","Description 1", TaskStatus.TODO,LocalDate.ofEpochDay(2025-12-31),tags);
+        Task task2 = new Task("Task 2","Description 2", TaskStatus.TODO,LocalDate.ofEpochDay(2025-1-31),tags);
 
         when(taskRepository.findAll()).thenReturn(List.of(task1, task2));
         List<Task> tasks = taskService.getAllTasks();
@@ -44,13 +45,13 @@ public class TaskServiceTest {
         List<String> tags = new ArrayList<>();
         tags.add("tag 1");
         tags.add("tag 2");
-        Task task = new Task("Task 1","Description 1", TaskStatus.TODO,"november",tags);
+        Task task = new Task("Task 1","Description 1", TaskStatus.TODO,LocalDate.ofEpochDay(2025-12-31),tags);
 
         TaskRequest task1 = new TaskRequest();
         task1.setTaskName("Task 1");
         task1.setDescription("Description 1");
         task1.setStatus(TaskStatus.TODO);
-        task1.setDueDate("november");
+        task1.setDueDate(LocalDate.ofEpochDay(2025-12-31));
         task1.setTags(tags);
 
         when(taskRepository.save(any(Task.class)))
@@ -103,10 +104,10 @@ public class TaskServiceTest {
         long taskId = 1L;
         List<String> tags = List.of("tag 1");
 
-        Task currentTask = new Task("Task 1","Description 1", TaskStatus.TODO,"november",tags);
+        Task currentTask = new Task("Task 1","Description 1", TaskStatus.TODO,LocalDate.ofEpochDay(2025-12-31),tags);
         currentTask.setId(taskId);
 
-        Task updatesTask = new Task("Task 2","Description 2", TaskStatus.TODO,"december",tags);
+        Task updatesTask = new Task("Task 2","Description 2", TaskStatus.TODO,LocalDate.ofEpochDay(2025-12-31),tags);
         when(taskRepository.findById(taskId)).thenReturn(java.util.Optional.of(updatesTask));
         when(taskRepository.save(any(Task.class))).thenAnswer(i -> i.getArgument(0));
 
@@ -118,7 +119,7 @@ public class TaskServiceTest {
     @Test
     void taskNotFound_ThrowRuntimeException_WhenUpdateTask(){
         long taskId = 1L;
-        Task task = new Task("New Task", "New Desc", TaskStatus.DONE, "december", List.of("tag"));
+        Task task = new Task("New Task", "New Desc", TaskStatus.DONE, LocalDate.ofEpochDay(2025-12-31), List.of("tag"));
 
         when(taskRepository.findById(taskId)).thenReturn(java.util.Optional.empty());
 
@@ -128,4 +129,18 @@ public class TaskServiceTest {
 
 
     }
+
+    @Test
+    void returnTasks_WhenGetTasksDueBefore(){
+        List tags = new ArrayList();
+        tags.add("tag 1");
+        Task task1 = new Task("Task 1","Description 1", TaskStatus.TODO,LocalDate.ofEpochDay(2025-12-31),tags);
+        Task task2 = new Task("Task 2","Description 2", TaskStatus.TODO,LocalDate.ofEpochDay(2025-1-31),tags);
+
+        when(taskRepository.findAll()).thenReturn(List.of(task1, task2));
+        List<Task> tasks = taskService.getTasksDueBefore(LocalDate.ofEpochDay(2025-5-31));
+
+        assertEquals(1, tasks.size());
+    }
+
 }

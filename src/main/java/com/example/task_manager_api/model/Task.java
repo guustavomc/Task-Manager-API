@@ -2,6 +2,8 @@ package com.example.task_manager_api.model;
 
 import com.example.task_manager_api.model.TaskStatus;
 import jakarta.persistence.*;
+import java.time.LocalDate;
+
 
 import java.util.List;
 
@@ -16,13 +18,13 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
     
-    private String dueDate;
+    private LocalDate dueDate;
     @ElementCollection
     private List<String> tags;
 
     public Task(){}
 
-    public Task(String taskName, String description, TaskStatus status, String dueDate, List<String> tags){
+    public Task(String taskName, String description, TaskStatus status, LocalDate dueDate, List<String> tags){
         this.taskName=taskName;
         this.description=description;
         this.status=status;
@@ -42,7 +44,7 @@ public class Task {
     public TaskStatus getStatus() {
         return status;
     }
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
@@ -62,7 +64,7 @@ public class Task {
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 

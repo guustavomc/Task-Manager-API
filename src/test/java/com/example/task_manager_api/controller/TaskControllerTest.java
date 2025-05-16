@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -39,7 +40,7 @@ public class TaskControllerTest {
 
     @Test
     void testCreateAndGetTasks() throws Exception {
-        Task task = new Task("Test Task", "Some Description", TaskStatus.TODO, "2025-05-10", List.of("work", "test"));
+        Task task = new Task("Test Task", "Some Description", TaskStatus.TODO, LocalDate.ofEpochDay(2025-12-31), List.of("work", "test"));
         task.setId(1L); // Set ID for saved task
 
         // Mock repository behavior
