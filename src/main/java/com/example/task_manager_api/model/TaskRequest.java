@@ -1,47 +1,37 @@
 package com.example.task_manager_api.model;
 
-import com.example.task_manager_api.model.TaskStatus;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
-@Entity
-public class Task {
+public class TaskRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @NotNull(message = "Task name is required")
+    @Size(min = 3, max = 100, message = "Task name must be between 3 and 100 characters")
     private String taskName;
+
     private String description;
-    @Enumerated(EnumType.STRING)
+
+    @NotNull(message = "Status is required")
     private TaskStatus status;
-    
+
     private String dueDate;
-    @ElementCollection
+
     private List<String> tags;
 
-    public Task(){}
-
-    public Task(String taskName, String description, TaskStatus status, String dueDate, List<String> tags){
-        this.taskName=taskName;
-        this.description=description;
-        this.status=status;
-        this.dueDate=dueDate;
-        this.tags=tags;
-    }
-
-    public Long getId() {
-        return id;
-    }
     public String getTaskName() {
         return taskName;
     }
+
     public String getDescription() {
         return description;
     }
+
     public TaskStatus getStatus() {
         return status;
     }
+
     public String getDueDate() {
         return dueDate;
     }
@@ -49,9 +39,7 @@ public class Task {
     public List<String> getTags() {
         return tags;
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
+
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
@@ -59,9 +47,11 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
+
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }

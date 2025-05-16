@@ -1,6 +1,7 @@
 package com.example.task_manager_api.service;
 
 import com.example.task_manager_api.model.Task;
+import com.example.task_manager_api.model.TaskRequest;
 import com.example.task_manager_api.model.TaskStatus;
 import com.example.task_manager_api.repository.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,14 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task saveTask(Task task) {
-        return taskRepository.save(task);
+    public Task saveTask(TaskRequest request) {
+        Task newTask = new Task();
+        newTask.setTaskName(request.getTaskName());
+        newTask.setDescription(request.getDescription());
+        newTask.setStatus(request.getStatus());
+        newTask.setDueDate(request.getDueDate());
+        newTask.setStatus(request.getStatus());
+        return taskRepository.save(newTask);
     }
 
     public void deleteTask(long id){

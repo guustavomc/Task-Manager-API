@@ -1,10 +1,13 @@
 package com.example.task_manager_api.controller;
 
 import com.example.task_manager_api.model.Task;
+import com.example.task_manager_api.model.TaskRequest;
 import com.example.task_manager_api.model.TaskStatus;
 import com.example.task_manager_api.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -13,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/task")
+@Validated
 public class TaskController {
 
     private final TaskService taskService;
@@ -27,8 +31,9 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        return taskService.saveTask(task);
+    public ResponseEntity<Task> createTask(@RequestBody @Valid TaskRequest taskRequest) {
+        Task task= taskService.saveTask(taskRequest);
+        return ResponseEntity.ok(task);
     }
     
     @DeleteMapping("/{id}")

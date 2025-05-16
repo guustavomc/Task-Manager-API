@@ -1,6 +1,7 @@
 package com.example.task_manager_api.service;
 
 import com.example.task_manager_api.model.Task;
+import com.example.task_manager_api.model.TaskRequest;
 import com.example.task_manager_api.model.TaskStatus;
 import com.example.task_manager_api.repository.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,13 +41,27 @@ public class TaskServiceTest {
 
     @Test
     void testCreateNewTask(){
-        List tags = new ArrayList();
+        List<String> tags = new ArrayList<>();
         tags.add("tag 1");
-        Task task1 = new Task("Task 1","Description 1", TaskStatus.TODO,"november",tags);
+        tags.add("tag 2");
+        Task task = new Task("Task 1","Description 1", TaskStatus.TODO,"november",tags);
 
-        when(taskRepository.save(task1)).thenReturn(task1);
+        TaskRequest task1 = new TaskRequest();
+        task1.setTaskName("Task 1");
+        task1.setDescription("Description 1");
+        task1.setStatus(TaskStatus.TODO);
+        task1.setDueDate("november");
 
-        assertEquals(taskService.saveTask(task1), task1);
+        when(taskRepository.save(any(Task.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        Task result = taskService.saveTask(task1);
+
+        assertNotNull(result);
+        assertEquals(task.getTaskName(), result.getTaskName());
+        assertEquals(task.getDescription(), result.getDescription());
+        assertEquals(task.getStatus(), result.getStatus());
+        assertEquals(task.getDueDate(), result.getDueDate());
     }
 
     @Test
