@@ -51,6 +51,7 @@ public class TaskServiceTest {
         task1.setDescription("Description 1");
         task1.setStatus(TaskStatus.TODO);
         task1.setDueDate("november");
+        task1.setTags(tags);
 
         when(taskRepository.save(any(Task.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
@@ -62,6 +63,8 @@ public class TaskServiceTest {
         assertEquals(task.getDescription(), result.getDescription());
         assertEquals(task.getStatus(), result.getStatus());
         assertEquals(task.getDueDate(), result.getDueDate());
+        assertEquals(task.getTags(), result.getTags());
+
     }
 
     @Test

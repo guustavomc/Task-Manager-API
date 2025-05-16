@@ -26,7 +26,7 @@ public class TaskService {
         newTask.setDescription(request.getDescription());
         newTask.setStatus(request.getStatus());
         newTask.setDueDate(request.getDueDate());
-        newTask.setStatus(request.getStatus());
+        newTask.setTags(request.getTags());
         return taskRepository.save(newTask);
     }
 
