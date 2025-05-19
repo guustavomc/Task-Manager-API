@@ -37,6 +37,7 @@ Task-Manager-API
 │   │   │       ├── model
 │   │   │       │   ├── Task.java               # Task entity
 │   │   │       │   └── TaskStatus.java         # Enum for task status
+│   │   │       │   └── TaskStatus.java         # TaskRequest entity
 │   │   │       ├── repository
 │   │   │       │   └── TaskRepository.java     # JPA repository for Task entity
 │   │   │       ├── service

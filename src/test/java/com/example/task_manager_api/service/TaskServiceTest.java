@@ -131,16 +131,37 @@ public class TaskServiceTest {
     }
 
     @Test
-    void returnTasks_WhenGetTasksDueBefore(){
-        List tags = new ArrayList();
+    void returnTasks_WhenGetTasksWithStatus(){
+        List<String> tags = new ArrayList<>();
         tags.add("tag 1");
-        Task task1 = new Task("Task 1","Description 1", TaskStatus.TODO,LocalDate.ofEpochDay(2025-12-31),tags);
-        Task task2 = new Task("Task 2","Description 2", TaskStatus.TODO,LocalDate.ofEpochDay(2025-1-31),tags);
 
-        when(taskRepository.findAll()).thenReturn(List.of(task1, task2));
-        List<Task> tasks = taskService.getTasksDueBefore(LocalDate.ofEpochDay(2025-5-31));
+        Task task1 = new Task("Task 1", "Description 1", TaskStatus.TODO, LocalDate.of(2025, 12, 31), tags);
+        Task task2 = new Task("Task 2", "Description 2", TaskStatus.IN_PROGRESS, LocalDate.of(2025, 1, 31), tags);
+
+        TaskStatus status= TaskStatus.IN_PROGRESS;
+        when(taskRepository.findByStatus(status)).thenReturn(List.of(task2));
+
+        List<Task> task = taskService.getTaskWithStatus(status);
+        assertEquals("Task 2",task.get(0).getTaskName());
+    }
+
+
+    @Test
+    void returnTasks_WhenGetTasksDueBefore() {
+        List<String> tags = new ArrayList<>();
+        tags.add("tag 1");
+
+        Task task1 = new Task("Task 1", "Description 1", TaskStatus.TODO, LocalDate.of(2025, 12, 31), tags);
+        Task task2 = new Task("Task 2", "Description 2", TaskStatus.TODO, LocalDate.of(2025, 1, 31), tags);
+
+        // Expect only task2 to be returned since it's due before 2025-05-31
+        LocalDate beforeDate = LocalDate.of(2025, 5, 31);
+        when(taskRepository.findByDueDateBefore(beforeDate)).thenReturn(List.of(task2));
+
+        List<Task> tasks = taskService.getTasksDueBefore(beforeDate);
 
         assertEquals(1, tasks.size());
+        assertEquals("Task 2", tasks.get(0).getTaskName());
     }
 
 }
