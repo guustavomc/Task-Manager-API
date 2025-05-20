@@ -100,7 +100,7 @@ Tests are organized similarly under `src/test/java`, mirroring the main package 
 - ✅ Use MockMvc to simulate HTTP requests
 
 ### 🔹 4. Data Validation & Error Handling
-- ⏳ Use `@Valid`, `@NotNull`, `@Size`, etc., on request DTOs
+- ✅ Use `@Valid`, `@NotNull`, `@Size`, etc., on request DTOs
 - ⏳ Create custom error responses using `@ControllerAdvice`
 
 ### 🔹 5. Advanced Features (Optional / Later)
