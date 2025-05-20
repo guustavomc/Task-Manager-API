@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -30,6 +31,11 @@ public class TaskService {
         newTask.setDueDate(request.getDueDate());
         newTask.setTags(request.getTags());
         return taskRepository.save(newTask);
+    }
+
+    public Task getTaskWithID(Long id){
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task with ID " + id + " not found"));
     }
 
     public void deleteTask(long id){

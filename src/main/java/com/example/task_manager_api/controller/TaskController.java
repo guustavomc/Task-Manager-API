@@ -5,12 +5,14 @@ import com.example.task_manager_api.model.TaskRequest;
 import com.example.task_manager_api.model.TaskStatus;
 import com.example.task_manager_api.service.TaskService;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -35,7 +37,15 @@ public class TaskController {
         Task task= taskService.saveTask(taskRequest);
         return ResponseEntity.ok(task);
     }
-    
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> getTaskWithID(@PathVariable("id") long id){
+        Task task = taskService.getTaskWithID(id);
+        return ResponseEntity.ok(task);
+
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeTask(@PathVariable("id") long id){
         try {
@@ -59,5 +69,10 @@ public class TaskController {
     @GetMapping("/status/{status}")
     public List<Task> getTaskWithStatus(@PathVariable("status")TaskStatus status){
         return taskService.getTaskWithStatus(status);
+    }
+
+    @GetMapping("/due")
+    public List<Task> getTasksBeforeDate(@RequestParam("before") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate beforeDate){
+        return taskService.getTasksDueBefore(beforeDate);
     }
 }

@@ -88,17 +88,16 @@ Tests are organized similarly under `src/test/java`, mirroring the main package 
 - ✅ Create `TaskController` with REST endpoints:
     - `GET    /api/task`             → List all tasks
     - `POST   /api/task`             → Create a task
-    - Planned endpoints (to be implemented):
-        - `GET    /api/task/{id}`        → Get task by ID
-        - `PUT    /api/task/{id}`        → Update a task
-        - `DELETE /api/task/{id}`        → Delete a task
-        - `GET    /api/task/status/{status}`    → Filter by status
-        - `GET    /api/task/due?before=...`     → Tasks due before date
+    - `GET    /api/task/{id}`        → Get task by ID
+    - `PUT    /api/task/{id}`        → Update a task
+    - `DELETE /api/task/{id}`        → Delete a task
+    - `GET    /api/task/status/{status}`    → Filter by status
+    - `GET    /api/task/due?before=...`     → Tasks due before date
 
 ### 🔹 3. Testing
+- ✅ Test `TaskService` (unit test with mocks)
 - ✅ Unit test `TaskController` using `@SpringBootTest` and MockMvc
 - ✅ Use MockMvc to simulate HTTP requests
-- ✅ Test `TaskService` (unit test with mocks)
 
 ### 🔹 4. Data Validation & Error Handling
 - ⏳ Use `@Valid`, `@NotNull`, `@Size`, etc., on request DTOs

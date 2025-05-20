@@ -69,6 +69,20 @@ public class TaskServiceTest {
     }
 
     @Test
+    void returnTask_WhenGetTaskWithID(){
+        long taskId = 1L;
+        List<String> tags = List.of("tag 1");
+
+        Task currentTask = new Task("Task 1","Description 1", TaskStatus.TODO,LocalDate.ofEpochDay(2025-12-31),tags);
+
+        when(taskRepository.findById(taskId)).thenReturn(java.util.Optional.of(currentTask));
+
+        Task task = taskService.getTaskWithID(taskId);
+        assertEquals("Task 1",task.getTaskName());
+    }
+
+
+    @Test
     void taskNotFound_ThrowRuntimeException_WhenDeleteTask(){
         long taskId = 1L;
         when(taskRepository.existsById(taskId)).thenReturn(false);
