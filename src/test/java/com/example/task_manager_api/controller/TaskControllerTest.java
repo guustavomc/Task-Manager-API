@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -17,11 +18,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser
 public class TaskControllerTest {
 
     @Autowired
@@ -40,7 +43,7 @@ public class TaskControllerTest {
 
     @Test
     void testCreateAndGetTasks() throws Exception {
-        Task task = new Task("Test Task", "Some Description", TaskStatus.TODO, LocalDate.ofEpochDay(2025-12-31), List.of("work", "test"));
+        Task task = new Task("Test Task", "Some Description", TaskStatus.TODO, LocalDate.of(2025, 12, 31), List.of("work", "test"));
         task.setId(1L); // Set ID for saved task
 
         // Mock repository behavior
@@ -49,9 +52,10 @@ public class TaskControllerTest {
 
         // POST
         mockMvc.perform(post("/api/task")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(task)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.taskName").value("Test Task"));
 
         // GET

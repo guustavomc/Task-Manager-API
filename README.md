@@ -1,4 +1,4 @@
-# Task Manager REST API
+﻿# Task Manager REST API
 
 A RESTful API for managing tasks, built with Spring Boot. This project allows users to create, retrieve, update, and delete tasks, organize them by status, and integrate with a database using Spring Data JPA. The API is designed to be testable, extensible, and secure (with optional Spring Security in later stages).
 
@@ -37,7 +37,7 @@ Task-Manager-API
 │   │   │       ├── model
 │   │   │       │   ├── Task.java               # Task entity
 │   │   │       │   └── TaskStatus.java         # Enum for task status
-│   │   │       │   └── TaskStatus.java         # TaskRequest entity
+│   │   │       │   └── TaskRequest.java        # TaskRequest DTO
 │   │   │       ├── repository
 │   │   │       │   └── TaskRepository.java     # JPA repository for Task entity
 │   │   │       ├── service
@@ -117,10 +117,10 @@ Tests are organized similarly under `src/test/java`, mirroring the main package 
 - Define `Task` model and enum ✅
 - Create repository with Spring Data JPA ✅
 - Build controller and service for CRUD ✅
-- Validate input (e.g., `taskName` not blank) ⏳
+- Validate input (e.g., `taskName` not blank) ✅
 
 ### Milestone 2: Testing
-- Add unit tests for the service layer ⏳
+- Add unit tests for the service layer ✅
 - Add integration tests for controllers using `@SpringBootTest` ✅
 
 ### Milestone 3: Extras
@@ -177,16 +177,15 @@ Tests are organized similarly under `src/test/java`, mirroring the main package 
 
 ## 📋 API Endpoints
 
-| Method | Endpoint              | Description         |
-|--------|-----------------------|---------------------|
-| GET    | `/api/task`           | List all tasks      |
-| POST   | `/api/task`           | Create a new task   |
-
-Additional endpoints (planned):
-- `GET /api/task/{id}` – Get task by ID
-- `PUT /api/task/{id}` – Update a task
-- `DELETE /api/task/{id}` – Delete a task
-- `GET /api/task/status/{status}` – Filter tasks by status
+| Method | Endpoint                      | Description                  |
+|--------|-------------------------------|------------------------------|
+| GET    | `/api/task`                   | List all tasks               |
+| POST   | `/api/task`                   | Create a new task            |
+| GET    | `/api/task/{id}`              | Get task by ID               |
+| PUT    | `/api/task/{id}`              | Update a task                |
+| DELETE | `/api/task/{id}`              | Delete a task                |
+| GET    | `/api/task/status/{status}`   | Filter tasks by status       |
+| GET    | `/api/task/due?before=...`    | Get tasks due before a date  |
 
 ## 🛡️ Security (Planned)
 - Add Spring Security with JWT or basic authentication to secure endpoints.

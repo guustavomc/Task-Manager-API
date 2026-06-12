@@ -35,7 +35,7 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody @Valid TaskRequest taskRequest) {
         Task task= taskService.saveTask(taskRequest);
-        return ResponseEntity.ok(task);
+        return ResponseEntity.status(HttpStatus.CREATED).body(task);
     }
 
     @GetMapping("/{id}")
@@ -60,7 +60,7 @@ public class TaskController {
     public ResponseEntity<Task> updateTask(@PathVariable("id") long id, @RequestBody Task task){
         try {
             Task updatedTask = taskService.updateTask(id, task);
-            return ResponseEntity.ok(task);
+            return ResponseEntity.ok(updatedTask);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(task);
         }
